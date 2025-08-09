@@ -14,32 +14,54 @@
     h1 {
       text-align: center;
       margin-bottom: 0.7em;
-      font-size: 1.1em;
+      font-size: 1.05em;
       color: #f5db1c;
       background: #112145;
-      padding: 0.3em 0;
+      padding: 0.22em 0;
       border-radius: 6px;
       letter-spacing: 0.04em;
     }
-    .category-row {
+    .category-row, .participation-row {
       display: flex;
       align-items: center;
-      margin-bottom: 0.18em;
-      font-size: 0.97em;
+      margin-bottom: 0.15em;
+      font-size: 0.98em;
       width: 100%;
     }
+    .cat-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      width: 40px;
+      height: 44px;
+      background: #112145;
+      color: #f5db1c;
+      font-size: 1.18em;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-right: 0.14em;
+      margin-left: 0.04em;
+      letter-spacing: 0.04em;
+      text-align: center;
+      position: relative;
+    }
     .cat-label {
+      font-size: 0.79em;
       color: #f5db1c;
       background: #112145;
-      padding: 0.18em 0.7em;
-      border-radius: 6px;
-      font-size: 0.97em;
-      letter-spacing: 0.03em;
-      font-weight: 600;
-      text-align: left;
-      flex: 0 0 120px;
-      margin-right: 0.3em;
+      border-radius: 5px;
+      padding: 0.08em 0.25em;
+      letter-spacing: 0.02em;
+      margin-top: 0.11em;
+      margin-bottom: 0.02em;
+      text-align: center;
+      font-weight: 500;
+      width: 90%;
+      max-width: 90px;
       white-space: nowrap;
+      line-height: 1.1em;
     }
     .rotate-btn {
       background: #112145;
@@ -47,14 +69,18 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 0.97em;
+      font-size: 1.02em;
       font-weight: 500;
-      padding: 0.32em 0.7em;
+      padding: 0.38em 0.9em;
       transition: background 0.2s;
       box-shadow: 0 1px 3px #11214520;
-      margin-right: 0.3em;
-      min-width: 110px;
+      margin-right: 0.24em;
+      margin-left: 0.08em;
+      min-width: 148px;
+      max-width: 200px;
       white-space: nowrap;
+      text-align: center;
+      display: inline-block;
     }
     .rotate-btn:hover {
       background: #254287;
@@ -66,23 +92,21 @@
       color: #112145;
       border-radius: 4px;
       padding: 0.36em 0.5em;
-      min-width: 120px;
+      min-width: 110px;
       text-align: left;
       min-height: 1.6em;
       flex: 1 1 auto;
-    }
-    .participation-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.18em;
-      width: 100%;
+      margin-left: 0.08em;
+      white-space: normal;
+      overflow-wrap: break-word;
     }
     .participation-container {
       display: flex;
       flex-wrap: wrap;
       gap: 0.18em;
-      margin-right: 0.4em;
+      margin-right: 0.3em;
       justify-content: flex-start;
+      margin-left: 0.08em;
     }
     .participation-btn {
       background: #112145;
@@ -90,13 +114,16 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 0.92em;
+      font-size: 0.93em;
       font-weight: 500;
-      padding: 0.26em 0.6em;
+      padding: 0.26em 0.66em;
       margin-bottom: 0.1em;
       transition: background 0.2s;
-      min-width: 70px;
+      min-width: 74px;
+      max-width: 120px;
       white-space: nowrap;
+      text-align: center;
+      display: inline-block;
     }
     .participation-btn.selected {
       background: #2da872;
@@ -107,14 +134,15 @@
     #participation-info {
       font-size: 0.85em;
       color: #555;
-      margin-left: 0.2em;
+      margin-left: 0.18em;
       text-align: left;
-      min-width: 125px;
+      min-width: 100px;
     }
     @media (max-width: 480px) {
       .category-row, .participation-row { flex-direction: column; align-items: stretch; }
-      .cat-label, .rotate-btn, .expectation-desc, .participation-btn, #participation-info { min-width: 0; width: 100%; margin-right: 0; }
-      .participation-container { justify-content: flex-start; gap: 0.12em; }
+      .cat-icon, .rotate-btn, .expectation-desc, .participation-btn, #participation-info { min-width: 0; width: 100%; margin-right: 0; margin-left: 0; }
+      .participation-container { justify-content: flex-start; gap: 0.12em; margin-left: 0; }
+      .cat-label { max-width: 100%; }
     }
   </style>
 </head>
@@ -122,27 +150,42 @@
   <h1>CHAMPS Expectations</h1>
 
   <div class="category-row" id="cat-conversation">
-    <div class="cat-label">Conversation</div>
+    <div class="cat-icon">
+      C
+      <div class="cat-label">Conversation</div>
+    </div>
     <button class="rotate-btn" id="btn-conversation"></button>
     <div class="expectation-desc" id="desc-conversation"></div>
   </div>
   <div class="category-row" id="cat-help">
-    <div class="cat-label">Help</div>
+    <div class="cat-icon">
+      H
+      <div class="cat-label">Help</div>
+    </div>
     <button class="rotate-btn" id="btn-help"></button>
     <div class="expectation-desc" id="desc-help"></div>
   </div>
   <div class="category-row" id="cat-activity">
-    <div class="cat-label">Activity</div>
+    <div class="cat-icon">
+      A
+      <div class="cat-label">Activity</div>
+    </div>
     <button class="rotate-btn" id="btn-activity"></button>
     <div class="expectation-desc" id="desc-activity"></div>
   </div>
   <div class="category-row" id="cat-movement">
-    <div class="cat-label">Movement</div>
+    <div class="cat-icon">
+      M
+      <div class="cat-label">Movement</div>
+    </div>
     <button class="rotate-btn" id="btn-movement"></button>
     <div class="expectation-desc" id="desc-movement"></div>
   </div>
   <div class="participation-row" id="cat-participation">
-    <div class="cat-label">Participation</div>
+    <div class="cat-icon">
+      P
+      <div class="cat-label">Participation</div>
+    </div>
     <div class="participation-container">
       <button class="participation-btn" data-participation="writing">Writing</button>
       <button class="participation-btn" data-participation="reading">Reading</button>
@@ -152,13 +195,16 @@
     <div id="participation-info">Select all types of participation expected.</div>
   </div>
   <div class="category-row" id="cat-chromebooks">
-    <div class="cat-label">Chromebooks</div>
+    <div class="cat-icon">
+      CB
+      <div class="cat-label">Chromebooks</div>
+    </div>
     <button class="rotate-btn" id="btn-chromebooks"></button>
     <div class="expectation-desc" id="desc-chromebooks"></div>
   </div>
 
   <script>
-    // Data for each category (using your revised wording)
+    // Data for each category (user's revised wording)
     const expectations = {
       conversation: [
         {label: "0 - Silent", desc: "Remain silent."},
