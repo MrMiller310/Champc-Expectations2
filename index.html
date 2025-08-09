@@ -21,23 +21,25 @@
       border-radius: 6px;
       letter-spacing: 0.04em;
     }
-    .category {
-      margin: 0.18em 0;
+    .category-row {
       display: flex;
-      flex-direction: column;
       align-items: center;
+      margin-bottom: 0.18em;
       font-size: 0.97em;
+      width: 100%;
     }
     .cat-label {
       color: #f5db1c;
       background: #112145;
       padding: 0.18em 0.7em;
       border-radius: 6px;
-      margin-bottom: 0.13em;
       font-size: 0.97em;
       letter-spacing: 0.03em;
       font-weight: 600;
-      text-align: center;
+      text-align: left;
+      flex: 0 0 120px;
+      margin-right: 0.3em;
+      white-space: nowrap;
     }
     .rotate-btn {
       background: #112145;
@@ -48,10 +50,11 @@
       font-size: 0.97em;
       font-weight: 500;
       padding: 0.32em 0.7em;
-      margin-bottom: 0.12em;
-      width: 95%;
       transition: background 0.2s;
       box-shadow: 0 1px 3px #11214520;
+      margin-right: 0.3em;
+      min-width: 110px;
+      white-space: nowrap;
     }
     .rotate-btn:hover {
       background: #254287;
@@ -63,17 +66,23 @@
       color: #112145;
       border-radius: 4px;
       padding: 0.36em 0.5em;
-      margin-bottom: 0.1em;
-      width: 95%;
-      text-align: center;
+      min-width: 120px;
+      text-align: left;
       min-height: 1.6em;
+      flex: 1 1 auto;
+    }
+    .participation-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.18em;
+      width: 100%;
     }
     .participation-container {
       display: flex;
       flex-wrap: wrap;
       gap: 0.18em;
-      margin-bottom: 0.1em;
-      justify-content: center;
+      margin-right: 0.4em;
+      justify-content: flex-start;
     }
     .participation-btn {
       background: #112145;
@@ -85,8 +94,9 @@
       font-weight: 500;
       padding: 0.26em 0.6em;
       margin-bottom: 0.1em;
-      margin-right: 0.1em;
       transition: background 0.2s;
+      min-width: 70px;
+      white-space: nowrap;
     }
     .participation-btn.selected {
       background: #2da872;
@@ -97,40 +107,41 @@
     #participation-info {
       font-size: 0.85em;
       color: #555;
-      margin-top: 0.1em;
-      text-align: center;
-      margin-bottom: 0.2em;
+      margin-left: 0.2em;
+      text-align: left;
+      min-width: 125px;
+    }
+    @media (max-width: 480px) {
+      .category-row, .participation-row { flex-direction: column; align-items: stretch; }
+      .cat-label, .rotate-btn, .expectation-desc, .participation-btn, #participation-info { min-width: 0; width: 100%; margin-right: 0; }
+      .participation-container { justify-content: flex-start; gap: 0.12em; }
     }
   </style>
 </head>
 <body>
   <h1>CHAMPS Expectations</h1>
 
-  <div class="category" id="cat-conversation">
+  <div class="category-row" id="cat-conversation">
     <div class="cat-label">Conversation</div>
     <button class="rotate-btn" id="btn-conversation"></button>
     <div class="expectation-desc" id="desc-conversation"></div>
   </div>
-
-  <div class="category" id="cat-help">
+  <div class="category-row" id="cat-help">
     <div class="cat-label">Help</div>
     <button class="rotate-btn" id="btn-help"></button>
     <div class="expectation-desc" id="desc-help"></div>
   </div>
-
-  <div class="category" id="cat-activity">
+  <div class="category-row" id="cat-activity">
     <div class="cat-label">Activity</div>
     <button class="rotate-btn" id="btn-activity"></button>
     <div class="expectation-desc" id="desc-activity"></div>
   </div>
-
-  <div class="category" id="cat-movement">
+  <div class="category-row" id="cat-movement">
     <div class="cat-label">Movement</div>
     <button class="rotate-btn" id="btn-movement"></button>
     <div class="expectation-desc" id="desc-movement"></div>
   </div>
-
-  <div class="category" id="cat-participation">
+  <div class="participation-row" id="cat-participation">
     <div class="cat-label">Participation</div>
     <div class="participation-container">
       <button class="participation-btn" data-participation="writing">Writing</button>
@@ -138,19 +149,16 @@
       <button class="participation-btn" data-participation="talking">Talking</button>
       <button class="participation-btn" data-participation="listening">Listening</button>
     </div>
-    <div id="participation-info">
-      Select all types of participation expected.
-    </div>
+    <div id="participation-info">Select all types of participation expected.</div>
   </div>
-
-  <div class="category" id="cat-chromebooks">
+  <div class="category-row" id="cat-chromebooks">
     <div class="cat-label">Chromebooks</div>
     <button class="rotate-btn" id="btn-chromebooks"></button>
     <div class="expectation-desc" id="desc-chromebooks"></div>
   </div>
 
   <script>
-    // Data for each category
+    // Data for each category (using your revised wording)
     const expectations = {
       conversation: [
         {label: "0 - Silent", desc: "Remain silent."},
