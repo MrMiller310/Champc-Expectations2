@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CHAMPS Classroom Expectations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2em;
+      background: #f5f7fa;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    .section {
+      margin-bottom: 2em;
+      background: #fff;
+      padding: 1em 2em;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #3265a8;
+      margin-bottom: 1em;
+    }
+    .expectation-btn, .participation-btn {
+      margin-right: 1em;
+      margin-bottom: 1em;
+      padding: 0.5em 1em;
+      border: none;
+      background: #3265a8;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.2s;
+    }
+    .expectation-btn:hover,
+    .participation-btn:hover {
+      background: #264e7c;
+    }
+    .expectation-btn.active {
+      background: #2da872;
+    }
+    .expectation-text {
+      margin-top: 1em;
+      font-size: 1.1em;
+      background: #eaf0fa;
+      padding: 0.75em;
+      border-radius: 4px;
+      display: none;
+    }
+    .participation-btn.selected {
+      background: #2da872;
+      font-weight: bold;
+      box-shadow: 0 0 4px #2da87280;
+    }
+    .participation-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>CHAMPS Classroom Expectations</h1>
+
+  <!-- Conversation -->
+  <div class="section">
+    <h2>Conversation</h2>
+    <button class="expectation-btn" data-target="conversation-0">0 - Silent</button>
+    <button class="expectation-btn" data-target="conversation-1">1 - Whisper</button>
+    <button class="expectation-btn" data-target="conversation-2">2 - Quiet Conversation</button>
+    <button class="expectation-btn" data-target="conversation-4">4 - Regular Conversation</button>
+    <div id="conversation-0" class="expectation-text">No talking. Remain completely silent.</div>
+    <div id="conversation-1" class="expectation-text">Whisper only to your immediate neighbor.</div>
+    <div id="conversation-2" class="expectation-text">Quiet conversation allowed with a small group.</div>
+    <div id="conversation-4" class="expectation-text">Regular conversation is permitted.</div>
+  </div>
+
+  <!-- Help -->
+  <div class="section">
+    <h2>Help</h2>
+    <button class="expectation-btn" data-target="help-1">Refer to Materials</button>
+    <button class="expectation-btn" data-target="help-2">Ask a Partner</button>
+    <button class="expectation-btn" data-target="help-3">Raise Your Hand</button>
+    <div id="help-1" class="expectation-text">First, check your notes or instructions for answers.</div>
+    <div id="help-2" class="expectation-text">If you can't find it, quietly ask a partner for help.</div>
+    <div id="help-3" class="expectation-text">If you still need help, raise your hand for the teacher.</div>
+  </div>
+
+  <!-- Activity -->
+  <div class="section">
+    <h2>Activity</h2>
+    <button class="expectation-btn" data-target="activity-1">Individual</button>
+    <button class="expectation-btn" data-target="activity-2">Partner</button>
+    <button class="expectation-btn" data-target="activity-3">Group</button>
+    <button class="expectation-btn" data-target="activity-4">Class</button>
+    <div id="activity-1" class="expectation-text">Work by yourself, no collaboration.</div>
+    <div id="activity-2" class="expectation-text">Work with one partner.</div>
+    <div id="activity-3" class="expectation-text">Work with a small group.</div>
+    <div id="activity-4" class="expectation-text">Whole class activity.</div>
+  </div>
+
+  <!-- Movement -->
+  <div class="section">
+    <h2>Movement</h2>
+    <button class="expectation-btn" data-target="movement-1">Seated</button>
+    <button class="expectation-btn" data-target="movement-2">Limited</button>
+    <button class="expectation-btn" data-target="movement-3">Unrestricted</button>
+    <div id="movement-1" class="expectation-text">Stay seated at your desk.</div>
+    <div id="movement-2" class="expectation-text">Get up only for specific reasons (e.g., supplies).</div>
+    <div id="movement-3" class="expectation-text">Move freely as needed.</div>
+  </div>
+
+  <!-- Participation (multi-select/highlight) -->
+  <div class="section">
+    <h2>Participation</h2>
+    <div class="participation-container">
+      <button class="participation-btn" data-participation="writing">Writing</button>
+      <button class="participation-btn" data-participation="reading">Reading</button>
+      <button class="participation-btn" data-participation="talking">Talking</button>
+      <button class="participation-btn" data-participation="listening">Listening</button>
+    </div>
+    <div id="participation-info" style="margin-top:1em; color:#555;">
+      Select all types of participation expected.
+    </div>
+  </div>
+
+  <!-- Chromebooks -->
+  <div class="section">
+    <h2>Chromebooks</h2>
+    <button class="expectation-btn" data-target="chromebooks-1">No Chromebooks</button>
+    <button class="expectation-btn" data-target="chromebooks-2">Shared</button>
+    <button class="expectation-btn" data-target="chromebooks-3">Limited w/ Music</button>
+    <button class="expectation-btn" data-target="chromebooks-4">Limited w/o Music</button>
+    <div id="chromebooks-1" class="expectation-text">Do not use Chromebooks during this activity.</div>
+    <div id="chromebooks-2" class="expectation-text">Share Chromebooks with a partner/group.</div>
+    <div id="chromebooks-3" class="expectation-text">Limited Chromebook use; music is allowed.</div>
+    <div id="chromebooks-4" class="expectation-text">Limited Chromebook use; music is not allowed.</div>
+  </div>
+
+  <script>
+    // Handle toggle buttons for expectation categories
+    document.querySelectorAll('.expectation-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const section = btn.closest('.section');
+        // Remove 'active' from all buttons in this section
+        section.querySelectorAll('.expectation-btn').forEach(function(b) {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        // Hide all expectation texts in this section
+        section.querySelectorAll('.expectation-text').forEach(function(div) {
+          div.style.display = 'none';
+        });
+        // Show the selected expectation text
+        const targetId = btn.getAttribute('data-target');
+        const targetDiv = section.querySelector('#' + targetId);
+        if (targetDiv) {
+          targetDiv.style.display = 'block';
+        }
+      });
+    });
+
+    // Participation multi-select/highlight logic
+    document.querySelectorAll('.participation-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('selected');
+      });
+    });
+  </script>
+</body>
+</html>
