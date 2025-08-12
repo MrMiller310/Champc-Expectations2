@@ -1,92 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classroom Expectations</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: white;
-        margin: 0;
-        padding: 20px;
-        text-align: center;
+  <meta charset="UTF-8">
+  <title>Classroom Expectations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #112145;
+      --accent: #f5db1c;
+      --background: #f7f7f7;
+      --box-radius: 12px;
     }
-    h1 {
-        color: #112145;
-        margin-bottom: 20px;
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 18px;
+    }
+    .expectation-box {
+      background: #fff;
+      border-radius: var(--box-radius);
+      box-shadow: 0 2px 8px rgba(17,33,69,0.09);
+      padding: 22px 16px;
+      width: 100%;
+      max-width: 410px;
+      margin-bottom: 18px;
+      border: 2px solid var(--primary);
     }
     .category {
-        margin: 10px 0;
-        font-size: 1.2em;
-        cursor: pointer;
-        background-color: #112145;
-        color: #f5db1c;
+      margin-bottom: 20px;
+    }
+    .category-title {
+      font-weight: bold;
+      font-size: 1.12em;
+      margin-bottom: 7px;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+    }
+    .cycle-btn, .toggle-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 7px 14px;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 0 3px 6px 0;
+      transition: background 0.16s, box-shadow 0.16s;
+      box-shadow: 0 1px 6px rgba(17,33,69,0.09);
+      outline: none;
+      border: 2px solid transparent;
+    }
+    .cycle-btn:hover, .toggle-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .option {
+      display: inline-block;
+      font-size: 1.09em;
+      margin-left: 9px;
+      vertical-align: middle;
+      font-weight: 500;
+      color: var(--primary);
+      background: var(--accent);
+      padding: 2px 8px;
+      border-radius: 5px;
+      min-width: 120px;
+      text-align: center;
+    }
+    .participation-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .toggle-btn.active {
+      background: var(--accent);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    @media (max-width: 500px) {
+      .expectation-box {
+        max-width: 97vw;
         padding: 10px;
-        border-radius: 8px;
-        user-select: none;
+      }
     }
-    .category:hover {
-        opacity: 0.85;
-    }
-    .inactive {
-        background-color: #ccc;
-        color: #444;
-    }
-</style>
+  </style>
 </head>
 <body>
+  <div class="expectation-box">
+    <!-- Conversation -->
+    <div class="category" id="conversation">
+      <div class="category-title">Conversation:</div>
+      <button class="cycle-btn" onclick="cycle('conversation')">Change</button>
+      <span class="option" id="conversation-value"></span>
+    </div>
+    <!-- Help -->
+    <div class="category" id="help">
+      <div class="category-title">Help:</div>
+      <button class="cycle-btn" onclick="cycle('help')">Change</button>
+      <span class="option" id="help-value"></span>
+    </div>
+    <!-- Activity -->
+    <div class="category" id="activity">
+      <div class="category-title">Activity:</div>
+      <button class="cycle-btn" onclick="cycle('activity')">Change</button>
+      <span class="option" id="activity-value"></span>
+    </div>
+    <!-- Movement -->
+    <div class="category" id="movement">
+      <div class="category-title">Movement:</div>
+      <button class="cycle-btn" onclick="cycle('movement')">Change</button>
+      <span class="option" id="movement-value"></span>
+    </div>
+    <!-- Participation (toggle) -->
+    <div class="category" id="participation">
+      <div class="category-title">Participation:</div>
+      <div class="participation-list">
+        <button class="toggle-btn" id="toggle-reading" onclick="toggleParticipation('Reading')">Reading</button>
+        <button class="toggle-btn" id="toggle-writing" onclick="toggleParticipation('Writing')">Writing</button>
+        <button class="toggle-btn" id="toggle-listening" onclick="toggleParticipation('Listening')">Listening</button>
+        <button class="toggle-btn" id="toggle-typing" onclick="toggleParticipation('Typing')">Typing</button>
+      </div>
+    </div>
+    <!-- Chromebooks -->
+    <div class="category" id="chromebook">
+      <div class="category-title">Chromebooks / Technology:</div>
+      <button class="cycle-btn" onclick="cycle('chromebook')">Change</button>
+      <span class="option" id="chromebook-value"></span>
+    </div>
+  </div>
+  <script>
+    // Option lists
+    const options = {
+      conversation: [
+        "0 – No talking",
+        "0.5 – Whisper",
+        "1 – Quiet voice",
+        "2 – Regular voice"
+      ],
+      help: [
+        "Raise hand",
+        "Ask a partner",
+        "Refer to materials"
+      ],
+      activity: [
+        "Independent",
+        "Partner",
+        "Group",
+        "Whole class"
+      ],
+      movement: [
+        "Remain seated",
+        "Limited w/ permission",
+        "Limited w/o permission",
+        "Unrestricted"
+      ],
+      chromebook: [
+        "No Chromebook",
+        "Chromebook w/ music",
+        "Chromebook w/o music"
+      ],
+      participation: [
+        "Reading",
+        "Writing",
+        "Listening",
+        "Typing"
+      ]
+    };
 
-<h1>Classroom Expectations</h1>
+    // State
+    let state = {
+      conversation: 0,
+      help: 0,
+      activity: 0,
+      movement: 0,
+      chromebook: 0,
+      participation: {
+        Reading: false,
+        Writing: false,
+        Listening: false,
+        Typing: false
+      }
+    };
 
-<div id="expectations">
-    <div class="category" data-options="0 – No talking,0.5 – Whisper,1 – Quiet voice,2 – Regular voice" data-index="0">
-        Conversations: 0 – No talking
-    </div>
-    <div class="category" data-options="Raise hand,Ask a partner,Refer to materials" data-index="0">
-        Help: Raise hand
-    </div>
-    <div class="category" data-options="Independent,Partner,Group,Whole class" data-index="0">
-        Activity: Independent
-    </div>
-    <div class="category" data-options="Remain seated,Limited w/ permission,Limited w/o permission,Unrestricted" data-index="0">
-        Movement: Remain seated
-    </div>
-    <div class="category participation" data-options="Reading,Writing,Listening,Typing" data-active="true">
-        Participation: Reading
-    </div>
-    <div class="category" data-options="No Chromebook,Chromebook w/ music,Chromebook w/o music" data-index="0">
-        Chromebooks / Technology: No Chromebook
-    </div>
-</div>
+    // Initialize display
+    function updateAll() {
+      document.getElementById('conversation-value').textContent = options.conversation[state.conversation];
+      document.getElementById('help-value').textContent = options.help[state.help];
+      document.getElementById('activity-value').textContent = options.activity[state.activity];
+      document.getElementById('movement-value').textContent = options.movement[state.movement];
+      document.getElementById('chromebook-value').textContent = options.chromebook[state.chromebook];
+      options.participation.forEach(part => {
+        document.getElementById('toggle-' + part.toLowerCase()).classList.toggle('active', state.participation[part]);
+      });
+    }
 
-<script>
-document.querySelectorAll('.category').forEach(category => {
-    category.addEventListener('click', function() {
-        const options = this.dataset.options.split(',');
-        
-        if (this.classList.contains('participation')) {
-            // Toggle active/inactive state for Participation
-            if (this.classList.contains('inactive')) {
-                this.classList.remove('inactive');
-                this.textContent = "Participation: " + options[0]; // reset to first option
-                this.dataset.index = 0;
-            } else {
-                let index = parseInt(this.dataset.index || 0);
-                index = (index + 1) % options.length;
-                this.dataset.index = index;
-                this.textContent = "Participation: " + options[index];
-            }
-        } else {
-            // Cycle through other expectation options
-            let index = parseInt(this.dataset.index || 0);
-            index = (index + 1) % options.length;
-            this.dataset.index = index;
-            this.textContent = this.textContent.split(':')[0] + ": " + options[index];
-        }
-    });
-});
-</script>
+    // Cycle through options
+    function cycle(category) {
+      state[category] = (state[category] + 1) % options[category].length;
+      updateAll();
+    }
 
+    // Toggle participation category
+    function toggleParticipation(part) {
+      state.participation[part] = !state.participation[part];
+      updateAll();
+    }
+
+    // Initial render
+    updateAll();
+  </script>
 </body>
 </html>
