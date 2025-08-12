@@ -1,204 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Classroom Expectations</title>
 <style>
-  body {
-    margin: 0;
-    padding: 10px;
-    font-family: sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .category {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .label {
-    background: #112145;
-    color: #f5db1c;
-    width: 100%;
-    text-align: center;
-    padding: 6px 0;
-    font-weight: bold;
-    font-size: 1rem;
-  }
-
-  .value {
-    margin: 8px 0 6px 0;
-    text-align: center;
-    line-height: 1.2;
-    word-wrap: break-word;
-    max-width: 95%;
-  }
-
-  button {
-    padding: 4px 10px;
-    font-size: 0.9rem;
-    border: none;
-    border-radius: 4px;
-    background: #112145;
-    color: #f5db1c;
-    cursor: pointer;
-    margin-bottom: 8px;
-  }
-
-  button:hover {
-    background: #1d3466;
-  }
-
-  .participation-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    justify-content: center;
-    margin: 8px 0;
-  }
-
-  .participation-options label {
-    background: #e4e4e4;
-    padding: 4px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    user-select: none;
-    font-size: 0.85rem;
-  }
-
-  .participation-options input[type="checkbox"] {
-    display: none;
-  }
-
-  .participation-options input:checked + span {
-    background: #112145;
-    color: #f5db1c;
-  }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    h1 {
+        color: #112145;
+        margin-bottom: 20px;
+    }
+    .category {
+        margin: 10px 0;
+        font-size: 1.2em;
+        cursor: pointer;
+        background-color: #112145;
+        color: #f5db1c;
+        padding: 10px;
+        border-radius: 8px;
+        user-select: none;
+    }
+    .category:hover {
+        opacity: 0.85;
+    }
+    .inactive {
+        background-color: #ccc;
+        color: #444;
+    }
 </style>
 </head>
 <body>
 
-<div class="category" data-cat="conversation">
-  <div class="label">Conversation</div>
-  <div class="value">0 – No talking</div>
-  <button>Change</button>
-</div>
+<h1>Classroom Expectations</h1>
 
-<div class="category" data-cat="help">
-  <div class="label">Help</div>
-  <div class="value">Raise hand</div>
-  <button>Change</button>
-</div>
-
-<div class="category" data-cat="activity">
-  <div class="label">Activity</div>
-  <div class="value">Independent</div>
-  <button>Change</button>
-</div>
-
-<div class="category" data-cat="movement">
-  <div class="label">Movement</div>
-  <div class="value">Remain seated</div>
-  <button>Change</button>
-</div>
-
-<div class="category" data-cat="chromebooks">
-  <div class="label">Chromebooks / Technology</div>
-  <div class="value">No Chromebook</div>
-  <button>Change</button>
-</div>
-
-<div class="category participation">
-  <div class="label">Participation</div>
-  <div class="participation-options">
-    <label><input type="checkbox"><span>Reading</span></label>
-    <label><input type="checkbox"><span>Writing</span></label>
-    <label><input type="checkbox"><span>Listening</span></label>
-    <label><input type="checkbox"><span>Typing</span></label>
-  </div>
+<div id="expectations">
+    <div class="category" data-options="0 – No talking,0.5 – Whisper,1 – Quiet voice,2 – Regular voice" data-index="0">
+        Conversations: 0 – No talking
+    </div>
+    <div class="category" data-options="Raise hand,Ask a partner,Refer to materials" data-index="0">
+        Help: Raise hand
+    </div>
+    <div class="category" data-options="Independent,Partner,Group,Whole class" data-index="0">
+        Activity: Independent
+    </div>
+    <div class="category" data-options="Remain seated,Limited w/ permission,Limited w/o permission,Unrestricted" data-index="0">
+        Movement: Remain seated
+    </div>
+    <div class="category participation" data-options="Reading,Writing,Listening,Typing" data-active="true">
+        Participation: Reading
+    </div>
+    <div class="category" data-options="No Chromebook,Chromebook w/ music,Chromebook w/o music" data-index="0">
+        Chromebooks / Technology: No Chromebook
+    </div>
 </div>
 
 <script>
-const data = {
-  conversation: [
-    "0 – No talking",
-    "0.5 – Whisper",
-    "1 – Quiet voice",
-    "2 – Regular voice"
-  ],
-  help: [
-    "Raise hand",
-    "Ask a partner",
-    "Refer to materials"
-  ],
-  activity: [
-    "Independent",
-    "Partner",
-    "Group",
-    "Whole class"
-  ],
-  movement: [
-    "Remain seated",
-    "Limited w/ permission",
-    "Limited w/o permission",
-    "Unrestricted"
-  ],
-  chromebooks: [
-    "No Chromebook",
-    "Chromebook w/ music",
-    "Chromebook w/o music"
-  ]
-];
-
-// Resize text to fit container
-function resizeText(el) {
-  let size = 20; // starting font size
-  el.style.fontSize = size + "px";
-  while ((el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight) && size > 10) {
-    size -= 1;
-    el.style.fontSize = size + "px";
-  }
-}
-
-// Apply resizing to all values initially and on change
-function applyResizing() {
-  document.querySelectorAll(".category[data-cat] .value").forEach(valueEl => {
-    resizeText(valueEl);
-  });
-}
-
-// Set up cycling buttons
-document.querySelectorAll(".category").forEach(catEl => {
-  const key = catEl.dataset.cat;
-  if (!key) return; // skip participation
-
-  const valueEl = catEl.querySelector(".value");
-  const button = catEl.querySelector("button");
-
-  let index = 0;
-  resizeText(valueEl);
-
-  button.addEventListener("click", () => {
-    index = (index + 1) % data[key].length;
-    valueEl.textContent = data[key][index];
-    resizeText(valueEl);
-  });
+document.querySelectorAll('.category').forEach(category => {
+    category.addEventListener('click', function() {
+        const options = this.dataset.options.split(',');
+        
+        if (this.classList.contains('participation')) {
+            // Toggle active/inactive state for Participation
+            if (this.classList.contains('inactive')) {
+                this.classList.remove('inactive');
+                this.textContent = "Participation: " + options[0]; // reset to first option
+                this.dataset.index = 0;
+            } else {
+                let index = parseInt(this.dataset.index || 0);
+                index = (index + 1) % options.length;
+                this.dataset.index = index;
+                this.textContent = "Participation: " + options[index];
+            }
+        } else {
+            // Cycle through other expectation options
+            let index = parseInt(this.dataset.index || 0);
+            index = (index + 1) % options.length;
+            this.dataset.index = index;
+            this.textContent = this.textContent.split(':')[0] + ": " + options[index];
+        }
+    });
 });
-
-// Resize when window changes
-window.addEventListener("resize", applyResizing);
-
-// Initial fit
-applyResizing();
 </script>
 
 </body>
