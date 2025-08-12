@@ -1,266 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CHAMPS Classroom Expectations</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      color: #222;
-      margin: 0;
-      padding: 0;
-      max-width: 440px;
-      width: 100vw;
-      height: 610px;
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 0.4em;
-      font-size: 1em;
-      color: #f5db1c;
-      background: #112145;
-      padding: 0.15em 0;
-      border-radius: 6px;
-      letter-spacing: 0.04em;
-      margin-top: 0.25em;
-    }
-    .category-grid, .participation-grid {
-      display: grid;
-      grid-template-columns: 52px 1fr;
-      align-items: center;
-      gap: 0.12em;
-      width: 98%;
-      margin: 0 auto 0.15em auto;
-      min-height: 56px;
-      box-sizing: border-box;
-    }
-    .cat-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 46px;
-      height: 46px;
-      background: #112145;
-      color: #f5db1c;
-      font-size: 1.28em;
-      font-weight: bold;
-      border-radius: 8px;
-      letter-spacing: 0.04em;
-      text-align: center;
-      box-sizing: border-box;
-    }
-    .cat-label {
-      font-size: 0.56em;
-      color: #f5db1c;
-      background: #112145;
-      border-radius: 5px;
-      padding: 0.05em 0.13em;
-      margin-top: 0.07em;
-      text-align: center;
-      font-weight: 500;
-      width: 95%;
-      max-width: 45px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1em;
-      box-sizing: border-box;
-    }
-    .rotate-btn {
-      background: #112145;
-      color: #f5db1c;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1em;
-      font-weight: 500;
-      padding: 0.34em 0.8em;
-      transition: background 0.2s;
-      box-shadow: 0 1px 3px #11214520;
-      margin: 0;
-      min-width: 135px;
-      max-width: 180px;
-      width: 100%;
-      white-space: nowrap;
-      text-align: center;
-      display: inline-block;
-      box-sizing: border-box;
-    }
-    .rotate-btn:hover {
-      background: #254287;
-      color: #f5db1c;
-    }
-    .participation-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.1em;
-      justify-content: flex-start;
-      margin-left: 0.1em;
-      margin-top: 0.1em;
-    }
-    .participation-btn {
-      background: #112145;
-      color: #f5db1c;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.93em;
-      font-weight: 500;
-      padding: 0.22em 0.42em;
-      margin-bottom: 0.07em;
-      transition: background 0.2s;
-      min-width: 62px;
-      max-width: 100px;
-      white-space: nowrap;
-      text-align: center;
-      display: inline-block;
-      box-sizing: border-box;
-    }
-    .participation-btn.selected {
-      background: #2da872;
-      color: #fff;
-      font-weight: bold;
-      box-shadow: 0 0 4px #2da87280;
-    }
-    #participation-info {
-      font-size: 0.84em;
-      color: #555;
-      text-align: left;
-      min-width: 80px;
-      padding-left: 0.2em;
-    }
-    @media (max-width: 480px) {
-      body {
-        max-width: 100vw;
-        height: auto;
-      }
-      .category-grid, .participation-grid {
-        grid-template-columns: 48px 1fr;
-      }
-      .cat-icon, .cat-label, .rotate-btn, .participation-btn, #participation-info {
-        min-width: 0;
-        width: 100%;
-      }
-      .cat-label { max-width: 100%; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Classroom Expectations</title>
+<style>
+  body {
+    margin: 0;
+    padding: 10px;
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .category {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .label {
+    background: #112145;
+    color: #f5db1c;
+    width: 100%;
+    text-align: center;
+    padding: 6px 0;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .value {
+    margin: 8px 0 6px 0;
+    text-align: center;
+    line-height: 1.2;
+    word-wrap: break-word;
+    max-width: 95%;
+  }
+
+  button {
+    padding: 4px 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    background: #112145;
+    color: #f5db1c;
+    cursor: pointer;
+    margin-bottom: 8px;
+  }
+
+  button:hover {
+    background: #1d3466;
+  }
+
+  .participation-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    margin: 8px 0;
+  }
+
+  .participation-options label {
+    background: #e4e4e4;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.85rem;
+  }
+
+  .participation-options input[type="checkbox"] {
+    display: none;
+  }
+
+  .participation-options input:checked + span {
+    background: #112145;
+    color: #f5db1c;
+  }
+</style>
 </head>
 <body>
-  <h1>CHAMPS Expectations</h1>
 
-  <div class="category-grid" id="cat-conversation">
-    <div class="cat-icon">
-      C
-      <div class="cat-label">Conversation</div>
-    </div>
-    <button class="rotate-btn" id="btn-conversation"></button>
-  </div>
-  <div class="category-grid" id="cat-help">
-    <div class="cat-icon">
-      H
-      <div class="cat-label">Help</div>
-    </div>
-    <button class="rotate-btn" id="btn-help"></button>
-  </div>
-  <div class="category-grid" id="cat-activity">
-    <div class="cat-icon">
-      A
-      <div class="cat-label">Activity</div>
-    </div>
-    <button class="rotate-btn" id="btn-activity"></button>
-  </div>
-  <div class="category-grid" id="cat-movement">
-    <div class="cat-icon">
-      M
-      <div class="cat-label">Movement</div>
-    </div>
-    <button class="rotate-btn" id="btn-movement"></button>
-  </div>
-  <div class="participation-grid" id="cat-participation">
-    <div class="cat-icon">
-      P
-      <div class="cat-label">Participation</div>
-    </div>
-    <div>
-      <div class="participation-container">
-        <button class="participation-btn" data-participation="writing">Writing</button>
-        <button class="participation-btn" data-participation="reading">Reading</button>
-        <button class="participation-btn" data-participation="talking">Talking</button>
-        <button class="participation-btn" data-participation="listening">Listening</button>
-      </div>
-      <div id="participation-info">Select all types of participation expected.</div>
-    </div>
-  </div>
-  <div class="category-grid" id="cat-chromebooks">
-    <div class="cat-icon">
-      CB
-      <div class="cat-label">Chromebooks</div>
-    </div>
-    <button class="rotate-btn" id="btn-chromebooks"></button>
-  </div>
+<div class="category" data-cat="conversation">
+  <div class="label">Conversation</div>
+  <div class="value">0 – No talking</div>
+  <button>Change</button>
+</div>
 
-  <script>
-    // Revised descriptive labels (button only)
-    const expectations = {
-      conversation: [
-        {label: "0 - Silent"},
-        {label: "1 - Whisper"},
-        {label: "2 - Quiet"},
-        {label: "4 - Regular"}
-      ],
-      help: [
-        {label: "Refer to Materials"},
-        {label: "Ask a Partner"},
-        {label: "Raise Your Hand"}
-      ],
-      activity: [
-        {label: "Individual"},
-        {label: "Partner"},
-        {label: "Group"},
-        {label: "Class"}
-      ],
-      movement: [
-        {label: "Seated"},
-        {label: "Limited"},
-        {label: "Unrestricted"}
-      ],
-      chromebooks: [
-        {label: "None"},
-        {label: "Shared"},
-        {label: "Limited w/ Music"},
-        {label: "Limited w/o Music"}
-      ]
-    };
+<div class="category" data-cat="help">
+  <div class="label">Help</div>
+  <div class="value">Raise hand</div>
+  <button>Change</button>
+</div>
 
-    // Rotating category logic (button only)
-    function setupRotation(category) {
-      let idx = 0;
-      const btn = document.getElementById("btn-" + category);
-      function update() {
-        btn.textContent = expectations[category][idx].label;
-      }
-      btn.addEventListener('click', function() {
-        idx = (idx + 1) % expectations[category].length;
-        update();
-      });
-      update();
-    }
-    setupRotation('conversation');
-    setupRotation('help');
-    setupRotation('activity');
-    setupRotation('movement');
-    setupRotation('chromebooks');
+<div class="category" data-cat="activity">
+  <div class="label">Activity</div>
+  <div class="value">Independent</div>
+  <button>Change</button>
+</div>
 
-    // Participation multi-select/highlight logic
-    document.querySelectorAll('.participation-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        btn.classList.toggle('selected');
-      });
-    });
-  </script>
+<div class="category" data-cat="movement">
+  <div class="label">Movement</div>
+  <div class="value">Remain seated</div>
+  <button>Change</button>
+</div>
+
+<div class="category" data-cat="chromebooks">
+  <div class="label">Chromebooks / Technology</div>
+  <div class="value">No Chromebook</div>
+  <button>Change</button>
+</div>
+
+<div class="category participation">
+  <div class="label">Participation</div>
+  <div class="participation-options">
+    <label><input type="checkbox"><span>Reading</span></label>
+    <label><input type="checkbox"><span>Writing</span></label>
+    <label><input type="checkbox"><span>Listening</span></label>
+    <label><input type="checkbox"><span>Typing</span></label>
+  </div>
+</div>
+
+<script>
+const data = {
+  conversation: [
+    "0 – No talking",
+    "0.5 – Whisper",
+    "1 – Quiet voice",
+    "2 – Regular voice"
+  ],
+  help: [
+    "Raise hand",
+    "Ask a partner",
+    "Refer to materials"
+  ],
+  activity: [
+    "Independent",
+    "Partner",
+    "Group",
+    "Whole class"
+  ],
+  movement: [
+    "Remain seated",
+    "Limited w/ permission",
+    "Limited w/o permission",
+    "Unrestricted"
+  ],
+  chromebooks: [
+    "No Chromebook",
+    "Chromebook w/ music",
+    "Chromebook w/o music"
+  ]
+];
+
+// Resize text to fit container
+function resizeText(el) {
+  let size = 20; // starting font size
+  el.style.fontSize = size + "px";
+  while ((el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight) && size > 10) {
+    size -= 1;
+    el.style.fontSize = size + "px";
+  }
+}
+
+// Apply resizing to all values initially and on change
+function applyResizing() {
+  document.querySelectorAll(".category[data-cat] .value").forEach(valueEl => {
+    resizeText(valueEl);
+  });
+}
+
+// Set up cycling buttons
+document.querySelectorAll(".category").forEach(catEl => {
+  const key = catEl.dataset.cat;
+  if (!key) return; // skip participation
+
+  const valueEl = catEl.querySelector(".value");
+  const button = catEl.querySelector("button");
+
+  let index = 0;
+  resizeText(valueEl);
+
+  button.addEventListener("click", () => {
+    index = (index + 1) % data[key].length;
+    valueEl.textContent = data[key][index];
+    resizeText(valueEl);
+  });
+});
+
+// Resize when window changes
+window.addEventListener("resize", applyResizing);
+
+// Initial fit
+applyResizing();
+</script>
+
 </body>
 </html>
