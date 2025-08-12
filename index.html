@@ -45,7 +45,35 @@
       color: var(--primary);
       letter-spacing: 0.5px;
     }
-    .cycle-btn, .toggle-btn {
+    .option {
+      display: inline-block;
+      font-size: 1.25em;
+      font-weight: bold;
+      margin-left: 9px;
+      vertical-align: middle;
+      color: var(--primary);
+      background: var(--accent);
+      padding: 10px 16px;
+      border-radius: 8px;
+      min-width: 150px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(245,219,28,0.20);
+      border: 2px solid var(--primary);
+      cursor: pointer;
+      user-select: none;
+      transition: box-shadow 0.2s, background 0.2s;
+    }
+    .option:active {
+      box-shadow: 0 0px 2px rgba(245,219,28,0.40);
+      background: #ffe854;
+    }
+    .participation-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .toggle-btn {
       background: var(--primary);
       color: #fff;
       border: none;
@@ -59,31 +87,10 @@
       outline: none;
       border: 2px solid transparent;
     }
-    .cycle-btn:hover, .toggle-btn:hover {
+    .toggle-btn:hover {
       background: var(--accent);
       color: var(--primary);
       border-color: var(--primary);
-    }
-    .option {
-  display: inline-block;
-  font-size: 1.25em;            /* Larger text */
-  font-weight: bold;            /* Bold text */
-  margin-left: 9px;
-  vertical-align: middle;
-  color: var(--primary);        /* Deep blue text */
-  background: var(--accent);    /* Yellow background */
-  padding: 10px 16px;           /* More padding */
-  border-radius: 8px;           /* Rounded corners */
-  min-width: 150px;             /* Wider */
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(245,219,28,0.20);  /* Subtle yellow shadow */
-  border: 2px solid var(--primary);             /* Blue border */
-    }
-    .participation-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
     }
     .toggle-btn.active {
       background: var(--accent);
@@ -103,26 +110,26 @@
     <!-- Conversation -->
     <div class="category" id="conversation">
       <div class="category-title">Conversation:</div>
-      <button class="cycle-btn" onclick="cycle('conversation')">Change</button>
-      <span class="option" id="conversation-value"></span>
+      <span class="option" id="conversation-value" onclick="cycle('conversation')"
+        title="Click to change expectation"></span>
     </div>
     <!-- Help -->
     <div class="category" id="help">
       <div class="category-title">Help:</div>
-      <button class="cycle-btn" onclick="cycle('help')">Change</button>
-      <span class="option" id="help-value"></span>
+      <span class="option" id="help-value" onclick="cycle('help')"
+        title="Click to change expectation"></span>
     </div>
     <!-- Activity -->
     <div class="category" id="activity">
       <div class="category-title">Activity:</div>
-      <button class="cycle-btn" onclick="cycle('activity')">Change</button>
-      <span class="option" id="activity-value"></span>
+      <span class="option" id="activity-value" onclick="cycle('activity')"
+        title="Click to change expectation"></span>
     </div>
     <!-- Movement -->
     <div class="category" id="movement">
       <div class="category-title">Movement:</div>
-      <button class="cycle-btn" onclick="cycle('movement')">Change</button>
-      <span class="option" id="movement-value"></span>
+      <span class="option" id="movement-value" onclick="cycle('movement')"
+        title="Click to change expectation"></span>
     </div>
     <!-- Participation (toggle) -->
     <div class="category" id="participation">
@@ -137,8 +144,8 @@
     <!-- Chromebooks -->
     <div class="category" id="chromebook">
       <div class="category-title">Chromebooks / Technology:</div>
-      <button class="cycle-btn" onclick="cycle('chromebook')">Change</button>
-      <span class="option" id="chromebook-value"></span>
+      <span class="option" id="chromebook-value" onclick="cycle('chromebook')"
+        title="Click to change expectation"></span>
     </div>
   </div>
   <script>
@@ -195,7 +202,7 @@
       }
     };
 
-    // Initialize display
+    // Update visible expectations
     function updateAll() {
       document.getElementById('conversation-value').textContent = options.conversation[state.conversation];
       document.getElementById('help-value').textContent = options.help[state.help];
@@ -207,7 +214,7 @@
       });
     }
 
-    // Cycle through options
+    // Cycle through options on click
     function cycle(category) {
       state[category] = (state[category] + 1) % options[category].length;
       updateAll();
