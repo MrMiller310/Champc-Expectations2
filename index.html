@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Classroom Expectations</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     :root {
       --primary: #112145;
@@ -66,6 +67,9 @@
     .option:active {
       box-shadow: 0 0px 2px rgba(245,219,28,0.40);
       background: #ffe854;
+    }
+    .option i, .toggle-btn i {
+      margin-right: 8px;
     }
     .participation-list {
       display: flex;
@@ -131,10 +135,18 @@
     <div class="category" id="participation">
       <div class="category-title">Participation:</div>
       <div class="participation-list">
-        <button class="toggle-btn" id="toggle-reading" onclick="toggleParticipation('Reading')">Reading</button>
-        <button class="toggle-btn" id="toggle-writing" onclick="toggleParticipation('Writing')">Writing</button>
-        <button class="toggle-btn" id="toggle-listening" onclick="toggleParticipation('Listening')">Listening</button>
-        <button class="toggle-btn" id="toggle-typing" onclick="toggleParticipation('Typing')">Typing</button>
+        <button class="toggle-btn" id="toggle-typing" onclick="toggleParticipation('Typing')">
+          <i class="fa-solid fa-keyboard"></i> Typing
+        </button>
+        <button class="toggle-btn" id="toggle-listening" onclick="toggleParticipation('Listening')">
+          <i class="fa-solid fa-ear-listen"></i> Listening
+        </button>
+        <button class="toggle-btn" id="toggle-writing" onclick="toggleParticipation('Writing')">
+          <i class="fa-solid fa-pencil"></i> Writing
+        </button>
+        <button class="toggle-btn" id="toggle-reading" onclick="toggleParticipation('Reading')">
+          <i class="fa-solid fa-book-open"></i> Reading
+        </button>
       </div>
     </div>
     <!-- Chromebooks -->
@@ -147,32 +159,32 @@
     // Option lists
     const options = {
       conversation: [
-        "0 – No talking",
-        "0.5 – Whisper",
-        "1 – Quiet voice",
-        "2 – Regular voice"
+        "<i class='fa-solid fa-volume-xmark'></i> 0 – No talking",
+        "<i class='fa-solid fa-volume-off'></i> 0.5 – Whisper",
+        "<i class='fa-solid fa-volume-low'></i> 1 – Quiet voice",
+        "<i class='fa-solid fa-volume-high'></i> 2 – Regular voice"
       ],
       help: [
-        "Raise hand",
-        "Ask a partner",
-        "Refer to materials"
+        "<i class='fa-solid fa-hand'></i> Raise hand",
+        "<i class='fa-solid fa-user-group'></i> Ask a partner",
+        "<i class='fa-solid fa-book'></i> Refer to materials"
       ],
       activity: [
-        "Independent",
-        "Partner",
-        "Group",
-        "Whole class"
+        "<i class='fa-solid fa-user'></i> Independent",
+        "<i class='fa-solid fa-user-group'></i> Partner",
+        "<i class='fa-solid fa-users'></i> Group",
+        "<i class='fa-solid fa-chalkboard-user'></i> Whole class"
       ],
       movement: [
-        "Remain seated",
-        "Limited w/ permission",
-        "Limited w/o permission",
-        "Unrestricted"
+        "<i class='fa-solid fa-chair'></i> Remain seated",
+        "<i class='fa-solid fa-person-walking-arrow-loop-left'></i> Limited w/ permission",
+        "<i class='fa-solid fa-person-walking-arrow-right'></i> Limited w/o permission",
+        "<i class='fa-solid fa-person-hiking'></i> Unrestricted"
       ],
       chromebook: [
-        "No Chromebook",
-        "Chromebook w/ music",
-        "Chromebook w/o music"
+        "<i class='fa-solid fa-rectangle-xmark'></i> No Chromebook",
+        "<i class='fa-solid fa-headphones'></i> Chromebook w/ music",
+        "<i class='fa-solid fa-laptop'></i> Chromebook w/o music"
       ],
       participation: [
         "Reading",
@@ -199,11 +211,11 @@
 
     // Update visible expectations
     function updateAll() {
-      document.getElementById('conversation-value').textContent = options.conversation[state.conversation];
-      document.getElementById('help-value').textContent = options.help[state.help];
-      document.getElementById('activity-value').textContent = options.activity[state.activity];
-      document.getElementById('movement-value').textContent = options.movement[state.movement];
-      document.getElementById('chromebook-value').textContent = options.chromebook[state.chromebook];
+      document.getElementById('conversation-value').innerHTML = options.conversation[state.conversation];
+      document.getElementById('help-value').innerHTML = options.help[state.help];
+      document.getElementById('activity-value').innerHTML = options.activity[state.activity];
+      document.getElementById('movement-value').innerHTML = options.movement[state.movement];
+      document.getElementById('chromebook-value').innerHTML = options.chromebook[state.chromebook];
       options.participation.forEach(part => {
         document.getElementById('toggle-' + part.toLowerCase()).classList.toggle('active', state.participation[part]);
       });
